@@ -20,6 +20,11 @@ jobs:
       run: |
         docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}" .
         docker images
+        
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     - name: Docker Login
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
